@@ -15,6 +15,7 @@ the matching row in back_image will contain [148, 22].
 """
 
 import numpy as np
+#%%
 
 def compute_camera_matrix(real_XY, front_image, back_image):
     """Computes camera matrix given image and real-world coordinates.
@@ -30,20 +31,20 @@ def compute_camera_matrix(real_XY, front_image, back_image):
     img_num2 = back_image.shape[0]
 
     x = np.zeros((2, img_num1+img_num2))
-    for i in xrange(img_num1):
+    for i in range(img_num1):
         x[:, i] = front_image[i, :].T
-    for j in xrange(img_num2):
+    for j in range(img_num2):
         x[:, j + img_num1] = back_image[j, :].T
     x_ones = np.ones((1, x.shape[1]))
     x = np.vstack((x, x_ones))
 
     X = np.zeros((2, img_num1+img_num2))
-    for i in xrange(img_num1):
+    for i in range(img_num1):
         X[:, i] = real_XY[i, :].T
-    for j in xrange(img_num2):
+    for j in range(img_num2):
         X[:, j + img_num1] = real_XY[j, :].T
     Z = np.zeros((1, X.shape[1]))
-    for k in xrange(Z.shape[1]):
+    for k in range(Z.shape[1]):
         if k >= img_num1:
             Z[:, k] = 150
     X = np.vstack((X, Z))
@@ -85,20 +86,20 @@ def rms_error(camera_matrix, real_XY, front_image, back_image):
     img_num2 = back_image.shape[0]
 
     x = np.zeros((2, img_num1+img_num2))
-    for i in xrange(img_num1):
+    for i in range(img_num1):
         x[:, i] = front_image[i, :].T
-    for j in xrange(img_num2):
+    for j in range(img_num2):
         x[:, j + img_num1] = back_image[j, :].T
     x_ones = np.ones((1, x.shape[1]))
     x = np.vstack((x, x_ones))
 
     X = np.zeros((2, img_num1+img_num2))
-    for i in xrange(img_num1):
+    for i in range(img_num1):
         X[:, i] = real_XY[i, :].T
-    for j in xrange(img_num2):
+    for j in range(img_num2):
         X[:, j + img_num1] = real_XY[j, :].T
     Z = np.zeros((1, X.shape[1]))
-    for k in xrange(Z.shape[1]):
+    for k in range(Z.shape[1]):
         if k >= img_num1:
             Z[:, k] = 150
     X = np.vstack((X, Z))
@@ -113,6 +114,7 @@ def rms_error(camera_matrix, real_XY, front_image, back_image):
     return rms_error
 
 if __name__ == '__main__':
+
     # Load the example coordinates setup.
     real_XY = np.load('real_XY.npy')
     front_image = np.load('front_image.npy')
@@ -120,7 +122,6 @@ if __name__ == '__main__':
 
     camera_matrix = compute_camera_matrix(real_XY, front_image, back_image)
     rmse = rms_error(camera_matrix, real_XY, front_image, back_image)
-    print "Camera Matrix:\n", camera_matrix
-    print
-    print "RMS Error: ", rmse
+    print("Camera Matrix:\n", camera_matrix)
+    print("RMS Error: ", rmse)
 
