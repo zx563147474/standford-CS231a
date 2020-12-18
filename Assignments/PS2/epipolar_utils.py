@@ -18,7 +18,7 @@ def get_data_from_txt_file(filename, use_subset = False):
     number_pts = int(lines[0])
 
     points = np.ones((number_pts, 3))
-    for i in xrange(number_pts):
+    for i in range(number_pts):
         split_arr = lines[i+1].split()
         if len(split_arr) == 2:
             y, x = split_arr
