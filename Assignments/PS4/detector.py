@@ -2,7 +2,7 @@ import numpy as np
 import os
 from sklearn.svm import LinearSVC
 import matplotlib.pyplot as plt
-from scipy.ndimage import imread
+from skimage.io import imread
 from utils import *
 
 '''
@@ -70,9 +70,8 @@ def run_detector(im, clf, window_size, cell_size, block_size, nbins, thresh=1):
     # reshape it to be a numpy array
     bboxes = np.array(bboxes)
     scores = np.array(scores)
-    print bboxes
-    print
-    print scores
+    print(bboxes)
+    print(scores)
     return bboxes, scores
 
 '''

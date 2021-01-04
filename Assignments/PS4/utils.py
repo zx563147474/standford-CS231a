@@ -1,5 +1,5 @@
 import os
-from scipy.ndimage import imread
+from skimage.io import imread
 import numpy as np
 import math
 import matplotlib.pyplot as plt
@@ -170,8 +170,8 @@ def generate_histogram(angles, magnitudes, nbins = 9):
     bin_size = float(180 / nbins)
 
     # iterate over the pixels
-    for h in xrange(angles.shape[0]):
-        for w in xrange(angles.shape[1]):
+    for h in range(angles.shape[0]):
+        for w in range(angles.shape[1]):
             ang = angles[h,w]
             mag = magnitudes[h,w]
 
@@ -258,8 +258,8 @@ def compute_hog_features(im, pixels_in_cell, cells_in_block, nbins):
         nbins * cells_in_block * cells_in_block))
 
     # iterate over the blocks, 50% overlap
-    for w in xrange(0, width - total_cells_in_block, stride):
-        for h in xrange(0, height - total_cells_in_block, stride):
+    for w in range(0, int(width - total_cells_in_block), int(stride)):
+        for h in range(0, int(height - total_cells_in_block), int(stride)):
             block_features = np.zeros((cells_in_block, cells_in_block,  nbins))
             block_magnitude = magnitudes[h:h+total_cells_in_block, 
                 w:w+total_cells_in_block]
@@ -267,8 +267,8 @@ def compute_hog_features(im, pixels_in_cell, cells_in_block, nbins):
                     w:w+total_cells_in_block]
             
             #  iterate over the cells
-            for i in xrange(cells_in_block):
-                for j in xrange(cells_in_block):
+            for i in range(cells_in_block):
+                for j in range(cells_in_block):
                     cell_magnitudes = block_magnitude[i * pixels_in_cell:(i+1)
                             * pixels_in_cell,
                             j*pixels_in_cell:(j+1)*pixels_in_cell]
